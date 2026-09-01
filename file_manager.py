@@ -2,6 +2,7 @@ import os
 import re
 import sys
 import subprocess
+import webbrowser
 from urllib.parse import urlparse
 
 class FileManager:
@@ -64,6 +65,21 @@ class FileManager:
         with open(full_path, 'w', encoding='utf-8') as f:
             f.write('\n'.join(links))
         return full_path
+
+    def save_html_report(self, html_content, filename="report.html"):
+        full_path = os.path.join(self.folder, filename)
+        with open(full_path, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+        print(f"📄 HTML-отчёт сохранён: {full_path}")
+        return full_path
+
+    def open_html_report(self, filename="report.html"):
+        path = os.path.join(self.folder, filename)
+        if os.path.exists(path):
+            webbrowser.open(path)
+            print(f"🌐 HTML-отчёт открыт в браузере: {path}")
+        else:
+            print(f"⚠️ Файл отчёта не найден: {path}")
 
     def open_folder(self):
         if not os.path.exists(self.folder):

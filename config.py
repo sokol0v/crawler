@@ -1,5 +1,5 @@
 # Режим без окон
-HEADLESS = True
+HEADLESS = False
 
 # Прокси (если нужен) – строка вида "http://user:pass@ip:port"
 PROXY = None
