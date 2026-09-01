@@ -1,10 +1,23 @@
-# config.py
-HEADLESS = False
-PROXY = None                # "http://user:pass@ip:port" или None
-TIMEOUT = 60000             # таймаут загрузки страницы (мс)
-WAIT_AFTER_LOAD = 3000      # задержка для рендеринга (мс)
-FILTER_INTERNAL_ONLY = True # Фильтровать ли только внутренние ссылки (одного домена)
-SAVE_REMOVED_LINKS = True   # Сохранять ли отдельный файл с удалёнными ссылками
-ALLOW_SUBDOMAINS = True     # Разрешать ли поддомены как внутренние (например, app.scb.ru)
-URLS_FILE = "urls.txt"      # Путь к файлу со списком URL (по умолчанию)
-FOLDER = "href_urls"        # Папка для сохранения результатов (по умолчанию)
+# Режим без окон
+HEADLESS = True
+
+# Прокси (если нужен) – строка вида "http://user:pass@ip:port"
+PROXY = None
+
+# Папка для сохранения результатов
+FOLDER = "href_urls"
+
+# Таймаут загрузки страницы (мс)
+TIMEOUT = 60000
+
+# Задержка после загрузки для рендеринга (мс)
+WAIT_AFTER_LOAD = 3000
+
+# Фильтровать только внутренние ссылки (одного домена)
+FILTER_INTERNAL_ONLY = True
+
+# Разрешать поддомены как внутренние (например, app.scb.ru)
+ALLOW_SUBDOMAINS = True
+
+# Сохранять отдельный файл с удалёнными ссылками (суффикс _removed)
+SAVE_REMOVED_LINKS = True
