@@ -1,4 +1,4 @@
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urlparse
 
 class LinkProcessor:
     @staticmethod
@@ -61,14 +61,3 @@ class LinkProcessor:
             else:
                 relative.append(link)
         return absolute, relative
-
-    @staticmethod
-    def resolve_relative_links(links, base_url):
-        resolved = []
-        for link in links:
-            if link.startswith(('http://', 'https://')):
-                resolved.append(link)
-            else:
-                absolute = urljoin(base_url, link)
-                resolved.append(f"{absolute} (ОТНОСИТЕЛЬНАЯ ССЫЛКА)")
-        return resolved

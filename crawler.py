@@ -1,5 +1,5 @@
 import os
-from colorama import init, Fore, Style
+from colorama import init, Fore
 from config import (
     HEADLESS, PROXY, FOLDER, TIMEOUT, WAIT_AFTER_LOAD,
     FILTER_INTERNAL_ONLY, SAVE_REMOVED_LINKS, ALLOW_SUBDOMAINS
@@ -32,9 +32,9 @@ class Crawler:
             )
 
             absolute_links, relative_links = self.processor.classify_links(valid_links)
-            resolved_valid = self.processor.resolve_relative_links(valid_links, url)
 
-            self.fm.save_valid_links(url, resolved_valid)
+            # Сохраняем оригинальные ссылки (без преобразования)
+            self.fm.save_valid_links(url, valid_links)
             if SAVE_REMOVED_LINKS:
                 self.fm.save_removed_links(url, removed_links)
 
@@ -43,7 +43,8 @@ class Crawler:
                 'absolute': len(absolute_links),
                 'relative': len(relative_links),
                 'removed': len(removed_links) if SAVE_REMOVED_LINKS else 0,
-                'valid_links': resolved_valid,
+                'absolute_links': absolute_links,
+                'relative_links': relative_links,
                 'removed_links': removed_links
             }
 
