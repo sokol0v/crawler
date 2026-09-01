@@ -1,9 +1,18 @@
 from urllib.parse import urlparse
 
-def is_valid_http_link(link):
+def is_web_link(link):
+    """
+    Проверяет, что ссылка ведёт на веб-страницу (не tel, mailto, javascript, #).
+    Относительные ссылки (начинающиеся с / или без протокола) допускаются.
+    """
     if not link:
         return False
-    return link.startswith(('http://', 'https://'))
+    # Исключаем не-веб схемы
+    excluded = ('tel:', 'mailto:', 'javascript:', '#')
+    if link.startswith(excluded):
+        return False
+    # Всё остальное считаем веб-ссылкой (включая относительные)
+    return True
 
 def is_internal_link(link, base_url, allow_subdomains=True):
     """
@@ -22,7 +31,6 @@ def is_internal_link(link, base_url, allow_subdomains=True):
     base_domain = parsed_base.netloc.lower()
 
     if allow_subdomains:
-        # Проверяем, что link_domain заканчивается на base_domain или равен ему
         return link_domain == base_domain or link_domain.endswith('.' + base_domain)
     else:
         return link_domain == base_domain
@@ -37,18 +45,21 @@ def filter_links(raw_links, base_url, internal_only=True, allow_subdomains=True)
         if not link:
             continue
 
-        if not is_valid_http_link(link):
+        # Проверяем, что это веб-ссылка (не tel, mailto и т.д.)
+        if not is_web_link(link):
             if link not in seen_removed:
                 removed.append(link)
                 seen_removed.add(link)
             continue
 
+        # Если включена фильтрация по домену, проверяем внутренность
         if internal_only and not is_internal_link(link, base_url, allow_subdomains):
             if link not in seen_removed:
                 removed.append(link)
                 seen_removed.add(link)
             continue
 
+        # Прошло все проверки – добавляем в валидные (без дублей)
         if link not in seen_valid:
             valid.append(link)
             seen_valid.add(link)
