@@ -67,7 +67,7 @@ class HTMLReportGenerator:
             <div class="summary">
                 <div class="card"><h3>Всего URL</h3><div class="number">{total_urls}</div></div>
                 <div class="card"><h3>Валидных ссылок</h3><div class="number">{total_valid}</div></div>
-                <div class="card"><h3>Удалённых ссылок</h3><div class="number">{total_removed}</div></div>
+                <div class="card"><h3>Невалидных ссылок</h3><div class="number">{total_removed}</div></div>
                 <div class="card"><h3>Абсолютных</h3><div class="number">{total_absolute}</div></div>
                 <div class="card"><h3>Относительных</h3><div class="number">{total_relative}</div></div>
             </div>
@@ -78,7 +78,7 @@ class HTMLReportGenerator:
                         <th>Валидные</th>
                         <th>Абсолютные</th>
                         <th>Относительные</th>
-                        <th>Удалённые</th>
+                        <th>Невалидные</th>
                         <th style="width: 140px;">Детали</th>
                     </tr>
                 </thead>
@@ -117,7 +117,7 @@ class HTMLReportGenerator:
                                     </ul>
                                 </div>
                                 <div class="links-column col-removed">
-                                    <h4 style="color: #991b1b;">❌ Удалённые ({count})</h4>
+                                    <h4 style="color: #991b1b;">❌ Невалидные ({count})</h4>
                                     <ul>
             """.replace("{count}", str(len(removed_links)))
             if removed_links:
